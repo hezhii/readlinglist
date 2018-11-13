@@ -34,4 +34,9 @@ public class ReadingListController {
         readingListRepository.save(book);
         return "redirect:/readingList/{reader}";
     }
+
+    @RequestMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
 }
