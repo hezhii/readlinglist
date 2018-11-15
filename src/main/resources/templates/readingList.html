@@ -6,11 +6,13 @@
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<h2>Your Reading List</h2>
+<h2><span th:text="${reader}">Name</span>'s Reading List</h2>
 <div th:unless="${#lists.isEmpty(books)}">
     <dl th:each="book : ${books}">
         <dt class="bookHeadline">
-            <span th:text="${book.title}">Title</span>
+            <a th:href="'http://www.amazon.com/gp/product/'
+                      + ${book.isbn} + '/tag=' + ${amazonID}"
+               th:text="${book.title}">Title</a> by
             <span th:text="${book.author}">Author</span>
             (ISBN: <span th:text="${book.isbn}">ISBN</span>)
         </dt>
@@ -23,7 +25,6 @@
 <div th:if="${#lists.isEmpty(books)}">
     <p>You have no books in your book list</p>
 </div>
-</body>
 
 <hr />
 
@@ -44,5 +45,5 @@
     <br />
     <input type="submit">
 </form>
-
+</body>
 </html>

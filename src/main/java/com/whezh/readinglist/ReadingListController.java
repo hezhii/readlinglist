@@ -13,17 +13,22 @@ import java.util.List;
 @RequestMapping("/")
 public class ReadingListController {
     private ReadingListRepository readingListRepository;
+    private AmazonProperties amazonProperties;
 
     @Autowired
-    public ReadingListController(ReadingListRepository readingListRepository) {
+    public ReadingListController(ReadingListRepository readingListRepository, AmazonProperties amazonProperties) {
         this.readingListRepository = readingListRepository;
+        this.amazonProperties = amazonProperties;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String readersBooks(Principal principal, Model model) {
-        List<Book> readingList = readingListRepository.findByReader(principal.getName());
+        String reader = principal.getName();
+        List<Book> readingList = readingListRepository.findByReader(reader);
         if (readingList != null) {
+            model.addAttribute("reader", reader);
             model.addAttribute("books", readingList);
+            model.addAttribute("amazonID", amazonProperties.getAssociateId());
         }
         return "readingList";
     }
