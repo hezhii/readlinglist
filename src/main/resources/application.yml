@@ -3,3 +3,26 @@ spring:
     cache: false
 amazon:
   associateId: hezhou
+logging:
+  level:
+    root: info
+
+---
+
+spring:
+  profiles: development
+
+logging:
+  level:
+    root: debug
+
+---
+
+spring:
+  profiles: production
+
+logging:
+  path: /tmp/
+  file: BookWorm.log
+  level:
+    root: warn
